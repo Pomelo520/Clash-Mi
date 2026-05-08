@@ -1,8 +1,8 @@
-Anchor_PR: &Anchor_PR {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: 'https://www.g.cn/generate_204', interval: 300}, filter: "^(?!.*(到期|过期|剩余|网址|官网|邮箱|订阅|套餐|流量|说明|重置)).*$"}
+Anchor_PR: &Anchor_PR {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: 'https://www.gstatic.com/generate_204', interval: 300}, filter: "^(?!.*(到期|过期|剩余|网址|官网|邮箱|订阅|套餐|流量|说明|重置)).*$"}
 Anchor_OB: &Anchor_OB {type: select, proxies: [一键代理, 香港故转, 台湾故转, 日本故转, 韩国故转, 新加坡故转, 美国故转, 欧洲故转, 香港自动, 台湾自动, 日本自动, 韩国自动, 新加坡自动, 美国自动, 欧洲自动, 香港手动, 台湾手动, 日本手动, 韩国手动, 新加坡手动, 美国手动, 欧洲手动, 其他手动, DIRECT, REJECT]}
 Anchor_HS: &Anchor_HS {type: select, include-all: true}
-Anchor_FB: &Anchor_FB {type: fallback, url: 'https://www.g.cn/generate_204', interval: 300, lazy: false, timeout: 2000, max-failed-times: 3, hidden: true}
-Anchor_UT: &Anchor_UT {type: url-test, url: 'https://www.g.cn/generate_204', interval: 300, lazy: false, tolerance: 50, timeout: 2000, max-failed-times: 3, hidden: true, include-all: true}
+Anchor_FB: &Anchor_FB {type: fallback, url: 'https://www.gstatic.com/generate_204', interval: 300, lazy: false, timeout: 2000, max-failed-times: 3, hidden: true}
+Anchor_UT: &Anchor_UT {type: url-test, url: 'https://www.gstatic.com/generate_204', interval: 300, lazy: false, tolerance: 50, timeout: 2000, max-failed-times: 3, hidden: true, include-all: true}
 Anchor_DN: &Anchor_DN {type: http, interval: 86400, behavior: domain, format: mrs}
 Anchor_IP: &Anchor_IP {type: http, interval: 86400, behavior: ipcidr, format: mrs}
 
@@ -12,8 +12,8 @@ Anchor_JP: &Anchor_JP '^(?i)(?=.*(日本|🇯🇵|\bJP\b|Japan|NRT|HND|KIX|CTS|F
 Anchor_KR: &Anchor_KR '^(?i)(?=.*(韩国|韓國|🇰🇷|首尔|首爾|\bKR\b|\bKOR\b|Korea|Seoul|South)).*$'
 Anchor_SG: &Anchor_SG '^(?i)(?=.*(新加坡|🇸🇬|\bSG\b|Singapore|SIN|XSP)).*$'
 Anchor_US: &Anchor_US '^(?i)(?=.*(美国|美國|🇺🇸|\bUS\b|\bUSA\b|SJC|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD)).*$'
-Anchor_EU: &Anchor_EU '^(?i)(?=.*(英国|英國|🇬🇧|德国|德國|🇩🇪|奥地利|比利时|保加利亚|希腊|爱尔兰|意大利|荷兰|波兰|西班牙|瑞典|London|Frankfurt|FRA|LHR)).*$'
-Anchor_OT: &Anchor_OT '^(?!.*(DIRECT|香港|台湾|日本|韩国|新加坡|美国|英国|德国|奥地利|比利时|保加利亚|希腊|爱尔兰|意大利|荷兰|波兰|西班牙|瑞典|🇭🇰|🇹🇼|🇸🇬|🇯🇵|🇰🇷|🇺🇸|HK|TW|SG|JP|KR|US)).*$'
+Anchor_EU: &Anchor_EU '^(?i)(?=.*(英国|英國|🇬🇧|德国|德國|🇩🇪|奥地利|比利时|保加利亚|希腊|爱尔兰|意大利|荷兰|波兰|西班牙|瑞典|London|Frankfurt|FRA|LHR|\bGB\b|\bUK\b|\bDE\b)).*$'
+Anchor_OT: &Anchor_OT '^(?!.*(DIRECT|香港|台湾|日本|韩国|新加坡|美国|英国|德国|奥地利|比利时|保加利亚|希腊|爱尔兰|意大利|荷兰|波兰|西班牙|瑞典|🇭🇰|🇹🇼|🇸🇬|🇯🇵|🇰🇷|🇺🇸|🇬🇧|🇩🇪|HK|TW|SG|JP|KR|US|GB|UK|DE|FRA|LHR)).*$'
 
 proxy-providers:
   机场A: {<<: *Anchor_PR, url: '这里填写订阅链接A', override: {additional-prefix: '[A] '}}
@@ -34,7 +34,7 @@ sniffer:
     TLS: {ports: [443, 8443]}
     HTTP: {ports: [80, 8080-8880], override-destination: true}
     QUIC: {ports: [443]}
-  skip-domain: ["+.apple.com", "Mijia Cloud", "+.push.apple.com", "+.baidu.com", "+.wechat.com", "+.alipay.com"]
+  skip-domain: ["+.apple.com", "Mijia Cloud", "+.push.apple.com", "+.baidu.com", "+.wechat.com", "+.alipay.com", "*.lan", "*.local"]
 
 dns:
   enable: true
@@ -46,6 +46,7 @@ dns:
   nameserver: [223.5.5.5, 119.29.29.29]
   fallback: [https://1.1.1.1/dns-query, https://8.8.8.8/dns-query]
   fallback-filter: {geoip: true, geoip-code: CN, ipmask: [240.0.0.0/4]}
+  fake-ip-filter: ['*.lan', '*.localdomain', '*.example', '*.invalid', '*.localhost', '*.test', '*.local']
 
 proxy-groups:
   - {name: 一键代理, type: select, proxies: [香港故转, 台湾故转, 日本故转, 韩国故转, 新加坡故转, 美国故转, 欧洲故转, 香港自动, 台湾自动, 日本自动, 韩国自动, 新加坡自动, 美国自动, 欧洲自动, 香港手动, 台湾手动, 日本手动, 韩国手动, 新加坡手动, 美国手动, 欧洲手动, 其他手动, DIRECT, REJECT], icon: https://github.com/Seven1echo/Yaml/raw/main/icons/Rocket.png}
@@ -104,5 +105,7 @@ rule-providers:
   netflix_domain: { <<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
   geolocation-!cn: { <<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
   cn_domain: { <<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}
+  private_ip: { <<: *Anchor_IP, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
+  cn_ip: { <<: *Anchor_IP, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
   private_ip: { <<: *Anchor_IP, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
   cn_ip: { <<: *Anchor_IP, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
