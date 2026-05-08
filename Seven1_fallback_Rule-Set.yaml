@@ -1,12 +1,3 @@
-# 名称： Seven1_fallback_Rule-Set
-# 版本： V2026.4.25
-# 日期： 2026年4月25日
-# 频道： https://t.me/Seven1gogogo
-# 地址： https://github.com/Seven1echo/Yaml
-# 说明： ①本文件适用于Mihomo核心的工具使用，如：OpenWrt（Clash/Nikki 插件）、Clashmi、FlClash、Clash Meta ……（支持仅内核使用）； ②使用前需补充完整 “订阅链接” 与 “机场名”，并将 “nameserver” 修改为运营商提供的 DNS 地址; ③已隐藏“故障转移”、“延迟自选”这两个策略组，使用时手动选取对应地区节点即可。
-
-
-
 # ※※※※※※※※※※※※※※※ 锚点区域 ※※※※※※※※※※※※※※※
 # ① 订阅锚点
 Anchor_PR: &Anchor_PR {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: 'https://www.g.cn/generate_204', interval: 300}, filter: "^(?!.*(到期|过期|剩余|网址|官网|邮箱|订阅|套餐|流量|说明|重置)).*$"}
